@@ -1,7 +1,14 @@
 package hexlet.code;
 
+import hexlet.code.schemas.StringSchema;
+
 public class Validator {
-    public static void main(String[] args) {
-        System.out.printf("Hello and welcome!");
+    Validator v = new Validator();
+    StringSchema schema = new StringSchema();
+
+    public StringSchema string() {
+        return schema;
     }
 }
+
+
