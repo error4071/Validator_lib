@@ -14,6 +14,7 @@ public class StringSchema {
     }
 
     public StringSchema required() {
+        this.required = false;
         return this;
     }
 
@@ -26,8 +27,17 @@ public class StringSchema {
     }
 
     public boolean isValid(String str) {
+        if (str instanceof String && str.length() >= 0 && required) {
+            return false;
+        }
         if (str.equals(null) || str.equals("")) {
             return true;
+        }
+        if (str instanceof String || str.contains(word)) {
+            return true;
+        }
+        if (str.length() > number) {
+            return false;
         } else {
             return false;
         }
