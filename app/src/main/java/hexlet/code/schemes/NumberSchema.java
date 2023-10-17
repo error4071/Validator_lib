@@ -1,7 +1,5 @@
 package hexlet.code.schemes;
 
-import java.util.function.Predicate;
-
 public final class NumberSchema extends BaseSchema {
     public NumberSchema positive() {
         addCheck(

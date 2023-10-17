@@ -1,42 +1,29 @@
 package hexlet.code.schemes;
 
+import java.util.Objects;
+
 public class StringSchema extends BaseSchema {
-    public boolean required;
-    private boolean minLength;
-    private boolean contains;
-    private String word;
-    private int number;
-
-    public StringSchema() {
-        this.required = false;
-        this.minLength = false;
-        this.contains = false;
-    }
-
     public StringSchema required() {
-        this.required = true;
+        addCheck(
+                "required",
+                value -> Objects.nonNull(value) && !value.toString().isEmpty()
+        );
+        return this;
+        }
+
+    public StringSchema minLength(int minStringLength) {
+        addCheck(
+                "minLength",
+                value -> value == null || value.toString().length() >= minStringLength
+        );
         return this;
     }
 
-    public StringSchema minLength(int number) {
+    public StringSchema contains(String str) {
+        addCheck(
+                "contains",
+                input -> input == null || input.toString().contains(str)
+        );
         return this;
-    }
-
-    public StringSchema contains(String word) {
-        return this;
-    }
-
-    public boolean isValid(String str) {
-        if (!isRequired && (str == null || str.equals(""))) {
-            return true;
-        }
-        if (str instanceof String || str.contains(word)) {
-            return true;
-        }
-        if (str.length() > number) {
-            return false;
-        } else {
-            return false;
-        }
     }
 }
