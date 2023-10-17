@@ -1,37 +1,21 @@
 package hexlet.code.schemes;
 
-public class NumberSchema {
-    private boolean required;
-    private boolean positive;
-    private boolean range;
-    private Integer number;
+import java.util.function.Predicate;
 
-    public NumberSchema() {
-        this.required = false;
-        this.positive = false;
-        this.range = false;
-    }
-
-    public NumberSchema required() {
-        return this;
-    }
-
+public final class NumberSchema extends BaseSchema {
     public NumberSchema positive() {
+        addCheck(
+                "positive",
+                value -> ((int) value) > 0
+        );
         return this;
     }
 
-    public NumberSchema inRange(Integer beginNum, Integer endNum) {
+    public NumberSchema range(Integer max, Integer min) {
+        addCheck(
+                "range",
+                value -> (int) value <= max && (int) value >= min
+        );
         return this;
-    }
-
-    public boolean isValid(Integer number) {
-        if (number == 0 || number == (null) ) {
-            return true;
-        }
-        if (positive && (number == null)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }

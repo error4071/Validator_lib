@@ -1,7 +1,7 @@
 package hexlet.code.schemes;
 
-public class StringSchema {
-    private boolean required;
+public class StringSchema extends BaseSchema {
+    public boolean required;
     private boolean minLength;
     private boolean contains;
     private String word;
@@ -14,11 +14,11 @@ public class StringSchema {
     }
 
     public StringSchema required() {
-        this.required = false;
+        this.required = true;
         return this;
     }
 
-    public  StringSchema minLength(int number) {
+    public StringSchema minLength(int number) {
         return this;
     }
 
@@ -27,10 +27,7 @@ public class StringSchema {
     }
 
     public boolean isValid(String str) {
-        if (str instanceof String && str.length() >= 0 && required) {
-            return false;
-        }
-        if (str.equals(null) || str.equals("")) {
+        if (!isRequired && (str == null || str.equals(""))) {
             return true;
         }
         if (str instanceof String || str.contains(word)) {
