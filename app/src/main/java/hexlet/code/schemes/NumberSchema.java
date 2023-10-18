@@ -1,6 +1,17 @@
 package hexlet.code.schemes;
 
+import java.util.Objects;
+
 public final class NumberSchema extends BaseSchema {
+
+    public NumberSchema required() {
+        addCheck(
+                "required",
+                value -> Objects.nonNull(value)
+        );
+        return this;
+
+    }
     public NumberSchema positive() {
         addCheck(
                 "positive",
@@ -12,7 +23,7 @@ public final class NumberSchema extends BaseSchema {
     public NumberSchema range(Integer max, Integer min) {
         addCheck(
                 "range",
-                value -> (int) value <= max && (int) value >= min
+                value -> value == null || (((Integer) value) >= max && ((Integer) value) <= min)
         );
         return this;
     }
