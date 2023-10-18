@@ -42,5 +42,5 @@ public class ValidatorTest {
         assertThat(schema.isValid(10)).isTrue();
         assertThat(schema.positive().isValid(-10)).isFalse();
         assertThat(schema.positive().isValid(5)).isTrue();
-        }
     }
+}

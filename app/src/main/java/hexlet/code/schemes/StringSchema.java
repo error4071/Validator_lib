@@ -9,7 +9,7 @@ public class StringSchema extends BaseSchema {
                 value -> Objects.nonNull(value) && !value.toString().isEmpty()
         );
         return this;
-        }
+    }
 
     public StringSchema minLength(int minStringLength) {
         addCheck(

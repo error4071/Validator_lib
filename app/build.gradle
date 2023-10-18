@@ -1,29 +1,36 @@
 plugins {
-    id 'application'
     id 'java'
     id 'checkstyle'
     id 'jacoco'
-    id 'com.adarshr.test-logger' version '3.2.0'
 }
 
-group 'hexlet.code'
-version '1.0-SNAPSHOT'
+compileJava {
+    options.release = 20
+    options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
+}
+
+checkstyle {
+    toolVersion '8.41'
+}
+
+group = 'hexlet.code'
+version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.jetbrains:annotations:24.0.0'
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
-    testImplementation 'junit:junit:4.13.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.2'
     testImplementation 'org.assertj:assertj-core:3.24.2'
 }
 
-application {
-    mainClass = 'hexlet.code.App'
+test {
+    useJUnitPlatform()
 }
 
 test {
@@ -35,8 +42,4 @@ jacocoTestReport {
     reports {
         xml.required = true
     }
-}
-
-compileJava {
-    options.release = 17
 }
