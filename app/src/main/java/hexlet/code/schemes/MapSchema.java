@@ -26,7 +26,7 @@ public final class MapSchema extends BaseSchema {
                         .stream().allMatch(key -> {
                             Object valueInput = ((Map<?, ?>) value).get(key);
                             return schemas.get(key).isValid(valueInput);
-                })
+                        })
         );
         return this;
     }
