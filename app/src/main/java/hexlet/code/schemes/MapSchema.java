@@ -3,7 +3,7 @@ package hexlet.code.schemes;
 import java.util.Map;
 
 public final class MapSchema extends BaseSchema {
-    public MapSchema required () {
+    public MapSchema required() {
         addCheck(
                 "required",
                 value -> value == null || value instanceof Map<?, ?>
@@ -26,9 +26,9 @@ public final class MapSchema extends BaseSchema {
                         .stream().allMatch(key -> {
                             Object valueInput = ((Map<?, ?>) value).get(key);
                             return schemas.get(key).isValid(valueInput);
-                        })
+                })
         );
-                return this;
+        return this;
     }
 }
 
