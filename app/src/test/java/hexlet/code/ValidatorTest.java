@@ -1,15 +1,15 @@
 package hexlet.code;
 
-import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-
-import hexlet.code.schemas.StringSchema;
-import hexlet.code.schemas.NumberSchema;
-import hexlet.code.schemas.MapSchema;
 import hexlet.code.schemas.BaseSchema;
+import hexlet.code.schemas.MapSchema;
+import hexlet.code.schemas.NumberSchema;
+import hexlet.code.schemas.StringSchema;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ValidatorTest {
 

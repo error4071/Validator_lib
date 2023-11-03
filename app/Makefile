@@ -1,24 +1,23 @@
-.DEFAULT_GOAL := build-run
+.DEFAULT_GOAL := build
 
 clean:
-	make -C app clean
+	./gradlew clean
 
 build:
-	make -C app build
+	./gradlew clean build
 
 install:
-	make -C app install
-
+	./gradlew clean install
+	
 test:
-	make -C app test
+	./gradlew test
 
 report:
-	make -C app report
+	./gradlew jacocoTestReport
 
 lint:
-	make -C app lint
+	./gradlew checkstyleMain checkstyleTest
 
 build-run: build run
 
 .PHONY: build
-
