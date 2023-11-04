@@ -39,62 +39,81 @@ public class ValidatorTest {
 
     @Test
     public void numberSchemaTest() {
-        Validator n = new Validator();
-        NumberSchema schema = n.number();
+        Validator v = new Validator();
+        NumberSchema schema = v.number();
 
+        assertThat(schema.isValid(5)).isTrue();
         assertThat(schema.isValid(null)).isTrue();
-        assertThat(schema.isValid("3")).isTrue();
+
+
+        assertThat(schema.positive().isValid(null)).isTrue();
 
         schema.required();
+        assertThat(schema.isValid(null)).isFalse();
+        assertThat(schema.isValid("5")).isFalse();
+        assertThat(schema.isValid(-10)).isFalse();
+        assertThat(schema.isValid(0)).isFalse();
         assertThat(schema.isValid(10)).isTrue();
-        assertThat(schema.positive()
-                .isValid(-10)).isFalse();
-        assertThat(schema.positive()
-                .isValid(5)).isTrue();
+
+        schema.range(5, 10);
+        assertThat(schema.isValid(5)).isTrue();
+        assertThat(schema.isValid(10)).isTrue();
+        assertThat(schema.isValid(4)).isFalse();
+        assertThat(schema.isValid(11)).isFalse();
+
+        schema.range(6, 9);
+        assertThat(schema.isValid(5)).isFalse();
+        assertThat(schema.isValid(10)).isFalse();
     }
 
     @Test
     public void mapSchemaTest() {
-        Validator m = new Validator();
-        MapSchema schema = m.map();
+        Validator v = new Validator();
+        MapSchema schema = v.map();
 
         assertThat(schema.isValid(null)).isTrue();
+        assertThat(schema.isValid(new HashMap())).isTrue();
 
         schema.required();
+        assertThat(schema.isValid(null)).isFalse();
+        assertThat(schema.isValid(new HashMap())).isTrue();
 
-        assertThat(schema.isValid(null)).isTrue();
-        Map<String, String> data = new HashMap<>();
-        assertThat(schema.isValid(data)).isTrue();
-        data.put("key1", "value1");
-        assertThat(schema.isValid(data)).isTrue();
-
-
+        schema.sizeof(2);
+        assertThat(schema.isValid(new HashMap())).isFalse();
+        Map<String, String> actual1 = new HashMap<>();
+        actual1.put("key1", "value1");
+        assertThat(schema.isValid(actual1)).isFalse();
+        actual1.put("key2", "value2");
+        assertThat(schema.isValid(actual1)).isTrue();
 
         Map<String, BaseSchema> schemas = new HashMap<>();
-
-        schemas.put("name", m.string().required());
-        schemas.put("age", m.number().positive());
-
+        schemas.put("name", v.string().required().contains("ya"));
+        schemas.put("age", v.number().positive());
         schema.shape(schemas);
 
-        Map<String, Object> human1 = new HashMap<>();
-        human1.put("name", "Kolya");
-        human1.put("age", 100);
-        assertThat(schema.isValid(human1)).isTrue();
+        Map<String, Object> actual2 = new HashMap<>();
+        actual2.put("name", "Kolya");
+        actual2.put("age", 100);
+        assertThat(schema.isValid(actual2)).isTrue();
 
-        Map<String, Object> human2 = new HashMap<>();
-        human2.put("name", "Maya");
-        human2.put("age", null);
+        Map<String, Object> actual3 = new HashMap<>();
+        actual3.put("name", "Maya");
+        actual3.put("age", null);
+        assertThat(schema.isValid(actual3)).isTrue();
 
-        Map<String, Object> human3 = new HashMap<>();
-        human3.put("name", "");
-        human3.put("age", null);
-        assertThat(schema.isValid(human3)).isFalse();
+        Map<String, Object> actual4 = new HashMap<>();
+        actual4.put("name", "");
+        actual4.put("age", null);
+        assertThat(schema.isValid(actual4)).isFalse();
 
-        Map<String, Object> human4 = new HashMap<>();
-        human4.put("name", "Valya");
-        human4.put("age", -5);
-        assertThat(schema.isValid(human4)).isFalse();
+        Map<String, Object> actual5 = new HashMap<>();
+        actual5.put("name", "Valya");
+        actual5.put("age", -5);
+        assertThat(schema.isValid(actual5)).isFalse();
 
+        Map<String, Object> actual6 = new HashMap<>();
+        actual6.put("name", "Ada");
+        actual6.put("age", 15);
+        assertThat(schema.isValid(actual6)).isFalse();
     }
 }
