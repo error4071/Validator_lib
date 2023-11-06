@@ -1,12 +1,13 @@
 package hexlet.code.schemas;
 
 import java.util.Map;
+import java.util.Objects;
 
 public final class MapSchema extends BaseSchema {
     public MapSchema required() {
         addCheck(
                 "required",
-                value -> value == null || value instanceof Map<?, ?>
+                value -> Objects.nonNull(value)
         );
         return this;
     }
