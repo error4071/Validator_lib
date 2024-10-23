@@ -64,3 +64,5 @@ Data validator is a library that can be used to check the correctness of any dat
     human2.put("age", null);
     schema.isValid(human1); // false
 
+#### Author
+Sergey Tsoy / error4071
