@@ -1,4 +1,4 @@
-## Data validator.
+# Data validator.
 
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/error4071/java-project-78/workflows/hexlet-check/badge.svg)](https://github.com/error4071/java-project-78/actions) ![Java CI](https://github.com/error4071/java-project-71/workflows/Java%20CI/badge.svg)
